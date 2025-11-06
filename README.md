@@ -1,4 +1,4 @@
-# 人工智慧期中作業：Google Colab 執行影片目標追蹤
+# 人工智慧期中作業：Google Colab 影片目標追蹤
 
 ## 組員
 - 11125013 郭慧庭
@@ -7,59 +7,88 @@
 
 ---
 
-## 一、執行目的
-本次作業目標為：在 Google Colab 上執行影片目標追蹤程式，使電腦能在影片中辨識並持續追蹤同一物體。  
-我們依照老師提供教學網站的流程進行嘗試，並整理出可重複執行的操作步驟。
+## 一、作業目的
+本作業的目標是在 Google Colab 上執行影片目標追蹤。  
+我們先依照題目提供的示範流程操作，但因環境差異導致模型推論階段無法正常執行，  
+因此補充三種可在 Colab 正常執行的替代追蹤方法，並整理執行流程與結果。
 
-教學來源：  
+題目教學來源：  
 https://blog.csdn.net/qq_30347421/article/details/104534297
 
 ---
 
-## 二、實際操作流程（依老師教學整理）
+## 二、題目原始方法（無法於 Colab 完整執行）
+Notebook：  
+https://colab.research.google.com/drive/1W4ejb55Ll4tb3B0jU2w1ABNdjUYuo6yi#scrollTo=S8xKLIJKQ14C
 
-> 教學來源：  
-> https://blog.csdn.net/qq_30347421/article/details/104534297
+本組依照題目流程在 Colab 中設定環境與執行程式，並依執行狀況調整了路徑及套件版本。  
+前置流程可成功執行，但在模型推論階段因環境版本差異，最終無法輸出追蹤結果影片。
 
-### Step 1. 開啟 Colab
-https://colab.research.google.com/
+主要執行流程如下：
 
-### Step 2. 掛載 Google Drive
-左側 **Files** → **Mount Drive**，或執行：
 ```python
 from google.colab import drive
 drive.mount('/content/drive')
-```
 
-### Step 3. 切換到程式所在資料夾
-```bash
 %cd /content/drive/MyDrive/video_analyst/
-```
-
-### Step 4. 安裝必要套件
-```bash
 pip install -r requirements.txt
-```
-
-### Step 5. 執行測試程式
-```bash
 python tools/test.py
 ```
-執行後會讀取模型與影片並嘗試進行追蹤。
+
+> **結果說明：**  
+> 程式可啟動並執行前半段流程，但在讀取模型與推論階段中斷，未能成功產生追蹤影片。
+
+本組原始實作紀錄：
+https://drive.google.com/xxxxx
 
 ---
 
-## 三、執行畫面（截圖）
+## 三、可在 Colab 成功執行的方法
 
-| 步驟 | 截圖檔名 | 說明 |
-|---|---|---|
-| 掛載 Drive 成功 | assets/step2_mount.png | 看到「Mounted at /content/drive」字樣 |
-| 切換資料夾 | assets/step3_cd.png | `pwd` 或 `cd` 後出現正確路徑 |
-| 安裝套件 | assets/step4_pip.png | `pip install -r requirements.txt` 的安裝畫面 |
-| 執行 test.py | assets/step5_test.png | 執行中的畫面或訊息（正常或中斷皆可） |
+### 方法 1：自動找人 + CSRT 追蹤
+Notebook：  
+https://colab.research.google.com/drive/1UuaKV3uMsmgFQVUwjKzzMdos_z6g7PwS
+
+**概念**：先用 HOG 偵測第一幀的人 → 取得初始邊界框 → 用 CSRT 追蹤整段影片  
+**輸出影片**：`auto_csrt_tracked.mp4`
 
 ---
 
-## 附件
-小組成員的步驟紀錄（供參考）：  
-https://drive.google.com/file/d/1W4ejb55Ll4tb3B0jU2w1ABNdjUYuo6yi/view?usp=sharing
+### 方法 2：骨架偵測追蹤
+Notebook：  
+https://colab.research.google.com/drive/17CKV5CozvxaJSQ1eyOoN0NbEIr0gJrpT
+
+**概念**：不框人，使用 MediaPipe 偵測身體關鍵點並繪製骨架  
+**輸出影片**：`pose_tracked.mp4`
+
+---
+
+### 方法 3：YOLO 偵測 + 多人 CSRT 追蹤
+Notebook：  
+https://colab.research.google.com/drive/1xLaj-yQcLALdZA7mFPYs2ryNsWB-gkPR
+
+**概念**：每隔數幀重新偵測人物 → 為每個人建立追蹤器 → 多人可同時追蹤  
+**輸出影片**：依程式設定，例如：`test-2_tracked.mp4`
+
+---
+
+## 四、三種方法比較
+
+| 方法 | 特點 | 適合情況 | 追蹤對象數 |
+|---|---|---|---|
+| 方法 1 | 先偵測一次後持續追蹤 | 單人、畫面穩定 | 一人 |
+| 方法 2 | 偵測骨架，不使用邊界框 | 活動動作分析 | 一人或多人 |
+| 方法 3 | 重新偵測 + 多追蹤器 | 多人同時出現在畫面中 | 多人 |
+
+---
+
+## 五、執行結果截圖（稍後補）
+
+| 描述 | 檔名（建議放在 `assets/` 資料夾） |
+|---|---|
+| Drive 掛載成功 | `step2_mount.png` |
+| 切換資料夾成功 | `step3_cd.png` |
+| 套件安裝畫面 | `step4_pip.png` |
+| 追蹤或骨架標示成功畫面 | `step5_result.png` |
+
+---
