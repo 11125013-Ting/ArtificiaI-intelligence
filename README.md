@@ -1,1 +1,5 @@
-# ArtificiaI-ntelligence
+# 人工智慧期中－－Google Colab跑目標跟蹤的test代碼
+## 組員：
+- 11125013 郭慧庭
+- 11125032 林欣儀
+- 11125036 夏振凱
