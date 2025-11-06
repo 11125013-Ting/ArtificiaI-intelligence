@@ -84,9 +84,9 @@ https://colab.research.google.com/drive/1xLaj-yQcLALdZA7mFPYs2ryNsWB-gkPR
 
 ---
 
-## 五、執行結果截圖（稍後補）
+## 五、執行結果截圖
 
-| 描述 | 檔名（建議放在 `assets/` 資料夾） |
+| 描述 | 檔名 |
 |---|---|
 | Drive 掛載成功 | `step2_mount.jpg` |
 | 切換資料夾成功 | `step3_cd.jpg` |
@@ -94,3 +94,12 @@ https://colab.research.google.com/drive/1xLaj-yQcLALdZA7mFPYs2ryNsWB-gkPR
 | 追蹤或骨架標示成功畫面 | `step5_result.jpg` |
 
 ---
+
+### 方法一成果示例
+
+| 原始影片 | 自動偵測 + CSRT 追蹤結果 |
+|---|---|
+| test-1.mp4 | auto_csrt_tracked.mp4 |
+
+🎬 成果影片下載/觀看：  
+https://github.com/11125013-Ting/Artificial-intelligence/blob/main/videos/auto_csrt_tracked.mp4
