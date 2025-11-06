@@ -101,4 +101,4 @@ https://colab.research.google.com/drive/1xLaj-yQcLALdZA7mFPYs2ryNsWB-gkPR
 |---|---|
 | test-1.mp4 | auto_csrt_tracked.mp4 |
 
-🎬 **成果影片**：[`videos/auto_csrt_tracked.mp4`](videos/auto_csrt_tracked.mp4)  
+🎬 **成果影片下載**：[`videos/auto_csrt_tracked.mp4`](videos/auto_csrt_tracked.mp4)  
