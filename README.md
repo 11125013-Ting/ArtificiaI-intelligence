@@ -50,7 +50,9 @@ Notebook：
 https://colab.research.google.com/drive/1UuaKV3uMsmgFQVUwjKzzMdos_z6g7PwS
 
 **概念**：先用 HOG 偵測第一幀的人 → 取得初始邊界框 → 用 CSRT 追蹤整段影片  
-**輸出影片**：`auto_csrt_tracked.mp4`
+**成果檔案**  
+- 影片：[`videos/auto_csrt_tracked.mp4`](videos/auto_csrt_tracked.mp4)  
+- 截圖：![](assets/step5_result.png)
 
 ---
 
