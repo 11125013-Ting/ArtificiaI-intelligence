@@ -16,22 +16,50 @@ https://blog.csdn.net/qq_30347421/article/details/104534297
 
 ---
 
-## 二、執行環境
-| 項目 | 說明 |
-|-----|-----|
-| 平台 | Google Colab |
-| 影像處理套件 | OpenCV |
-| 檔案存放 | Google Drive |
+## 二、實際操作流程（依老師教學整理）
 
----
-
-## 三、操作流程
+> 教學來源：  
+> https://blog.csdn.net/qq_30347421/article/details/104534297
 
 ### Step 1. 開啟 Colab
-開啟我們小組使用的 Notebook：  
-https://colab.research.google.com/drive/1oq9gmI7Gh2I7Pi1LgNtHYqgEalj6aP-R
+https://colab.research.google.com/
 
 ### Step 2. 掛載 Google Drive
+左側 **Files** → **Mount Drive**，或執行：
 ```python
 from google.colab import drive
 drive.mount('/content/drive')
+```
+
+### Step 3. 切換到程式所在資料夾
+```bash
+%cd /content/drive/MyDrive/video_analyst/
+```
+
+### Step 4. 安裝必要套件
+```bash
+pip install -r requirements.txt
+```
+
+### Step 5. 執行測試程式
+```bash
+python tools/test.py
+```
+執行後會讀取模型與影片並嘗試進行追蹤。
+
+---
+
+## 三、執行畫面（截圖）
+
+| 步驟 | 截圖檔名 | 說明 |
+|---|---|---|
+| 掛載 Drive 成功 | assets/step2_mount.png | 看到「Mounted at /content/drive」字樣 |
+| 切換資料夾 | assets/step3_cd.png | `pwd` 或 `cd` 後出現正確路徑 |
+| 安裝套件 | assets/step4_pip.png | `pip install -r requirements.txt` 的安裝畫面 |
+| 執行 test.py | assets/step5_test.png | 執行中的畫面或訊息（正常或中斷皆可） |
+
+---
+
+## 附件
+小組成員的步驟紀錄（供參考）：  
+https://drive.google.com/file/d/1W4ejb55Ll4tb3B0jU2w1ABNdjUYuo6yi/view?usp=sharing
