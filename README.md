@@ -66,12 +66,12 @@ https://colab.research.google.com/drive/1myJMZpZqiKZTzWcI_MTvekDEtF_hy_na
 ```
 
 **輸出檔案**
-![videos/auto_csrt_tracked.mp4](auto_csrt_tracked.mp4)
+![auto_csrt_tracked.mp4](videos/auto_csrt_tracked.mp4)
 
 
 **執行成果**
 - **輸出影片：** 
-  ![videos/auto_csrt_tracked.mp4](auto_csrt_tracked.mp4)
+  ![auto_csrt_tracked.mp4](videos/auto_csrt_tracked.mp4)
 - **成果截圖：**  
   ![]()
 
@@ -97,12 +97,12 @@ https://colab.research.google.com/drive/1H91ZppZwKA_QGpaH-PmXRAr2GZKtwkSJ
 ```
 
 **輸出檔案**
-![videos/pose_tracked.mp4](pose_tracked.mp4)
+![pose_tracked.mp4](videos/pose_tracked.mp4)
 
 
 **執行成果**
 - **輸出影片：** 
-  ![videos/pose_tracked.mp4](pose_tracked.mp4)
+  ![pose_tracked.mp4](videos/pose_tracked.mp4)
 - **骨架標示：**  
   ![]()
 
@@ -131,11 +131,11 @@ https://colab.research.google.com/drive/1Q5uEcF9hB27QALWkMBR2JAYDF9GiEdd3
 ```
 
 **輸出檔案**
-![videos/test-2_tracked.mp4](test-2_tracked.mp4)
+![test-2_tracked.mp4](videos/test-2_tracked.mp4)
 
 **執行成果**
 - **輸出影片：**
-  ![videos/test-2_tracked.mp4](test-2_tracked.mp4)
+  ![test-2_tracked.mp4](videos/test-2_tracked.mp4)
 - **追蹤截圖：**  
   ![]()
 
