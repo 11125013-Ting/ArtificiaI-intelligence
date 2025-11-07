@@ -73,7 +73,7 @@ https://colab.research.google.com/drive/1myJMZpZqiKZTzWcI_MTvekDEtF_hy_na
 - **輸出影片：** 
   ![auto_csrt_tracked.mp4](videos/auto_csrt_tracked.mp4)
 - **成果截圖：**  
-  ![]()
+  ![step5_result.jpg](assets/step5_result.jpg)
 
 **常見錯誤與處理方式**
 | 錯誤訊息 | 原因 | 解決方式 |
