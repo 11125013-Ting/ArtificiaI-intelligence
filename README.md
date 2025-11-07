@@ -9,22 +9,23 @@
 
 ## 一、作業目的
 本作業的目標是在 Google Colab 上執行影片目標追蹤。  
-我們先依照題目提供的示範流程操作，但因環境差異導致模型推論階段無法正常執行，  
-因此補充三種可在 Colab 正常執行的替代追蹤方法，並整理執行流程與結果。
+我們先依照題目提供的示範流程操作，但因環境差異導致模型推論無法正常執行，  
+因此整理可在 Colab 中正常運作的替代追蹤方法，並比較其差異。
 
 題目教學來源：  
 https://blog.csdn.net/qq_30347421/article/details/104534297
 
+測試影片來源：  
+https://pixabay.com/videos/search/people%20walking/?utm_source=chatgpt.com
+
 ---
 
 ## 二、題目原始方法（無法於 Colab 完整執行）
+
 Notebook：  
-https://colab.research.google.com/drive/1W4ejb55Ll4tb3B0jU2w1ABNdjUYuo6yi#scrollTo=S8xKLIJKQ14C
+https://colab.research.google.com/drive/1W4ejb55Ll4tb3B0jU2w1ABNdjUYuo6yi
 
-本組依照題目流程在 Colab 中設定環境與執行程式，並依執行狀況調整了路徑及套件版本。  
-前置流程可成功執行，但在模型推論階段因環境版本差異，最終無法輸出追蹤結果影片。
-
-主要執行流程如下：
+主要執行流程：
 
 ```python
 from google.colab import drive
@@ -35,70 +36,79 @@ pip install -r requirements.txt
 python tools/test.py
 ```
 
-> **結果說明：**  
-> 程式可啟動並執行前半段流程，但在讀取模型與推論階段中斷，未能成功產生追蹤影片。
-
-本組原始實作紀錄：
-https://drive.google.com/xxxxx
-
----
-
 ## 三、可在 Colab 成功執行的方法
 
 ### 方法 1：自動找人 + CSRT 追蹤
 Notebook：  
-https://colab.research.google.com/drive/1UuaKV3uMsmgFQVUwjKzzMdos_z6g7PwS
+https://colab.research.google.com/drive/1myJMZpZqiKZTzWcI_MTvekDEtF_hy_na
 
-**概念**：先用 HOG 偵測第一幀的人 → 取得初始邊界框 → 用 CSRT 追蹤整段影片  
-**成果檔案**  
-- 影片：[`videos/auto_csrt_tracked.mp4`](videos/auto_csrt_tracked.mp4)  
-- 截圖：![`assets/step5_result.jpg`](assets/step5_result.jpg)
+**概念說明：**  
+1. 使用 HOG 偵測第一幀中的人物  
+2. 擷取偵測到的初始框  
+3. 使用 CSRT 持續追蹤該人物
+
+**本組執行成果影片：**  
+`videos/auto_csrt_tracked.mp4`  
+(已成功輸出，可直接播放)
+
+**成果截圖：**  
+![](assets/step5_result.jpg)
 
 ---
 
-### 方法 2：骨架偵測追蹤
+### 方法 2：骨架偵測追蹤（MediaPipe Pose）
 Notebook：  
-https://colab.research.google.com/drive/17CKV5CozvxaJSQ1eyOoN0NbEIr0gJrpT
+https://colab.research.google.com/drive/1H91ZppZwKA_QGpaH-PmXRAr2GZKtwkSJ
 
-**概念**：不框人，使用 MediaPipe 偵測身體關鍵點並繪製骨架  
-**輸出影片**：`pose_tracked.mp4`
+**概念說明：**  
+使用 MediaPipe Pose 偵測人體 33 個關鍵點，並繪製骨架來呈現動作軌跡。
+
+**本組執行情況：**  
+程式可成功執行並逐幀繪製骨架。  
+影片已成功產生，檔名為 `pose_tracked.mp4`。
+
+（本組影片檔案較大，將於口頭報告時展示。）
 
 ---
 
 ### 方法 3：YOLO 偵測 + 多人 CSRT 追蹤
 Notebook：  
-https://colab.research.google.com/drive/1xLaj-yQcLALdZA7mFPYs2ryNsWB-gkPR
+https://colab.research.google.com/drive/1Q5uEcF9hB27QALWkMBR2JAYDF9GiEdd3
 
-**概念**：每隔數幀重新偵測人物 → 為每個人建立追蹤器 → 多人可同時追蹤  
-**輸出影片**：依程式設定，例如：`test-2_tracked.mp4`
+**概念說明：**  
+1. YOLO 用於偵測畫面中的所有人物  
+2. 為每位人物建立一個 CSRT 追蹤器  
+3. 可同時追蹤多人，適用於群體場景
+
+**本組執行情況：**  
+程式成功運作並可輸出多人追蹤影片 `test-2_tracked.mp4`。  
+（同樣於報告中展示成果。）
 
 ---
 
 ## 四、三種方法比較
 
-| 方法 | 特點 | 適合情況 | 追蹤對象數 |
-|---|---|---|---|
-| 方法 1 | 先偵測一次後持續追蹤 | 單人、畫面穩定 | 一人 |
-| 方法 2 | 偵測骨架，不使用邊界框 | 活動動作分析 | 一人或多人 |
-| 方法 3 | 重新偵測 + 多追蹤器 | 多人同時出現在畫面中 | 多人 |
+| 方法 | 偵測方式 | 優點 | 缺點 | 適合情況 |
+|---|---|---|---|---|
+| 方法 1 | HOG + CSRT | 單人追蹤穩定、設定簡單 | 僅適用單人 | 單人影片追蹤 |
+| 方法 2 | MediaPipe Pose | 可觀察動作與姿勢 | 骨架線條可能抖動 | 運動 / 舞蹈分析 |
+| 方法 3 | YOLO + 多 CSRT | 可同時追蹤多人 | 計算量較大、較慢 | 多人行為追蹤 |
 
 ---
 
-## 五、執行結果截圖
+## 五、執行截圖（本組紀錄）
 
-| 描述 | 檔名 |
+| 描述 | 檔案 |
 |---|---|
 | Drive 掛載成功 | `step2_mount.jpg` |
-| 切換資料夾成功 | `step3_cd.jpg` |
-| 套件安裝畫面 | `step4_pip.jpg` |
-| 追蹤或骨架標示成功畫面 | `step5_result.jpg` |
+| 影像追蹤結果截圖 | `step5_result.jpg` |
 
 ---
 
-### 方法一成果示例
+## 六、結論
+本次實作比較三種追蹤方式：  
+- **方法 1** 在本次環境下最簡單且穩定  
+- **方法 2** 適用於需要觀察人體動作的場景  
+- **方法 3** 可多人追蹤，但計算量較高  
 
-| 原始影片 | 自動偵測 + CSRT 追蹤結果 |
-|---|---|
-| test-1.mp4 | auto_csrt_tracked.mp4 |
-
-🎬 **成果影片下載**：[`videos/auto_csrt_tracked.mp4`](videos/auto_csrt_tracked.mp4)  
+可依實際應用情境選擇合適的模型與追蹤策略。
