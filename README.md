@@ -22,11 +22,91 @@
 ---
 
 ## 二、題目原始方法
-> 此章節預留位置，用於補上：  
-> - 原始流程操作截圖  
-> - 中斷 / 錯誤狀況說明  
-> - 與可執行方法比較  
-（後續完成後再補）
+
+**資料與模型分別下載如下：**
+| 資料項目              | 來源連結                                                                                                                                                 |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| video_analyst 程式庫 | [https://github.com/megvii-research/video_analyst](https://github.com/megvii-research/video_analyst)                                                 |
+| 預訓練模型 Models      | [https://drive.google.com/drive/folders/1XhWIU1KIt9wvFpzZqEDaX-GrgZ9AVcOC](https://drive.google.com/drive/folders/1XhWIU1KIt9wvFpzZqEDaX-GrgZ9AVcOC) |
+| OTB2015 測試資料集     | [https://drive.google.com/drive/folders/1n-wG-XhhnFnhKBG4PraVJB8Fz_-oKy2z](https://drive.google.com/drive/folders/1n-wG-XhhnFnhKBG4PraVJB8Fz_-oKy2z) |
+
+### （1）資料放置結構
+```nginx
+MyDrive
+├── video_analyst
+│   └── datasets
+│       └── OTB2015   ← 需手動放入
+└── Models
+    └── siamfcpp-googlenet-...pkl
+```
+
+### （2）掛載 Google Drive 與切換至程式根目錄
+```python
+from google.colab import drive
+drive.mount('/content/drive/')
+```
+![掛載 Google Drive](assets/step2_mount.jpg)
+```python
+import os
+os.chdir('/content/drive/MyDrive/video_analyst/')
+```
+確認路徑：
+```python
+!ls
+```
+
+### （3）安裝需求套件
+原始**requirements.txt**套件版本不相容，因此需調整後重新安裝：
+```bash
+!pip install -r requirements.txt
+```
+>註：此處需手動修正套件版本，否則無法成功編譯。
+
+### （4）編譯相關模組
+```bash
+%cd videoanalyst/evaluation/vot_benchmark/pysot/utils/
+!python3 setup.py build_ext --inplace
+```
+回到主目錄：
+```bash
+%cd /content/drive/MyDrive/video_analyst
+```
+
+### （5）修改設定檔（模型路徑）
+開啟：
+```swift
+experiments/siamfcpp/test/otb/siamfcpp_googlenet-otb.yaml
+```
+將模型路徑改為：
+```bash
+/content/drive/MyDrive/Models/siamfcpp-googlenet-vot-md5_XXXX.pkl
+```
+
+### （6）修正程式碼相容性問題
+| 位置                                  | 修正內容                                                                                 |
+| ----------------------------------- | ------------------------------------------------------------------------------------ |
+| `crop.py` / `tensorboard_logger.py` | `from collections import Iterable` → 改為 `from collections.abc import Iterable`       |
+| `test.py` 添加                        | `root_cfg.test.track.pipeline.SiamFCppMultiTempTracker.st_mem_coef = 0.6` （補齊缺漏 key） |
+
+
+
+### （7）執行測試程式
+```python
+import numpy as np
+np.int = int
+
+%cd /content/drive/MyDrive/video_analyst
+import sys
+sys.path.append("/content/drive/MyDrive/video_analyst")
+
+%run main/test.py --config experiments/siamfcpp/test/otb/siamfcpp_googlenet-otb.yaml
+```
+
+### （8）最終執行結果
+- 程式成功開始讀取模型並逐一進行追蹤測試
+- 但在執行至第 67 隻測試序列（Lemming）時中斷
+- 無法完成整體追蹤流程，因此無法產生完整結果影片
+>因此本組改採其他可在 Colab 正常執行的追蹤方法（見第三章）。
 
 ---
 
@@ -47,7 +127,6 @@ drive.mount('/content/drive')
 from google.colab import drive
 drive.mount('/content/drive')
 ```
-![掛載 Google Drive](assets/step2_mount.jpg)
 
 ---
 
