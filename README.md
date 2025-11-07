@@ -106,7 +106,6 @@ sys.path.append("/content/drive/MyDrive/video_analyst")
 - 程式成功開始讀取模型並逐一進行追蹤測試
 - 但在執行至第 67 隻測試序列（Lemming）時中斷
 - 無法完成整體追蹤流程，因此無法產生完整結果影片
->因此本組改採其他可在 Colab 正常執行的追蹤方法（見第三章）。
 
 ---
 
