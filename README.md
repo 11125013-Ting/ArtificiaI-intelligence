@@ -7,9 +7,9 @@
 
 ---
 
-## 一、作業目的
-本作業的目標是在 Google Colab 上執行影片目標追蹤。  
-我們先依照題目提供的示範流程操作，但因環境差異導致模型推論無法正常執行，  
+## 一、程式目的
+程式的執行目標是在 Google Colab 上執行影片目標追蹤。  
+我們先依照題目提供的示範流程操作，但因環境差異導致無法正常執行，  
 因此整理可在 Colab 中正常運作的替代追蹤方法，並比較其差異。
 
 題目教學來源：  
@@ -27,14 +27,6 @@ https://colab.research.google.com/drive/1W4ejb55Ll4tb3B0jU2w1ABNdjUYuo6yi
 
 主要執行流程：
 
-```python
-from google.colab import drive
-drive.mount('/content/drive')
-
-%cd /content/drive/MyDrive/video_analyst/
-pip install -r requirements.txt
-python tools/test.py
-```
 
 ## 三、可在 Colab 成功執行的方法
 
@@ -52,7 +44,7 @@ https://colab.research.google.com/drive/1myJMZpZqiKZTzWcI_MTvekDEtF_hy_na
 (已成功輸出，可直接播放)
 
 **成果截圖：**  
-![](assets/step5_result.jpg)
+![assets/step5_result.jpg](assets/step5_result.jpg)
 
 ---
 
