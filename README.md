@@ -47,6 +47,7 @@ drive.mount('/content/drive')
 from google.colab import drive
 drive.mount('/content/drive')
 ```
+![掛載 Google Drive](assets/step2_mount.jpg)
 
 ---
 
@@ -73,7 +74,7 @@ https://colab.research.google.com/drive/1myJMZpZqiKZTzWcI_MTvekDEtF_hy_na
 - **輸出影片：** 
   `videos/auto_csrt_tracked.mp4`
 - **成果截圖：**  
-  ![step5_result.jpg](assets/step5_result.jpg)
+  ![方法1成果示例](assets/method1_result.jpg)
 
 **常見錯誤與處理方式**
 | 錯誤訊息 | 原因 | 解決方式 |
@@ -104,7 +105,7 @@ https://colab.research.google.com/drive/1H91ZppZwKA_QGpaH-PmXRAr2GZKtwkSJ
 - **輸出影片：** 
   `videos/test-1_pose_tracked.mp4`
 - **骨架標示：**  
-  ![]()
+  ![方法2成果示例](assets/method2_result.jpg)
 
 **常見狀況與處理方式**
 | 問題     | 原因      | 解決方式                                    |
@@ -136,7 +137,7 @@ https://colab.research.google.com/drive/1Q5uEcF9hB27QALWkMBR2JAYDF9GiEdd3
 - **輸出影片：**
 `videos/test-2_tracked.mp4`
 - **追蹤截圖：**  
-  ![]()
+  ![方法3成果示例](assets/method3_result.jpg)
 
 **常見狀況與處理方式**
 | 問題       | 原因            | 解決方式                                  |
