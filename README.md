@@ -54,13 +54,16 @@ os.chdir('/content/drive/MyDrive/video_analyst/')
 ```python
 !ls
 ```
+![!ls](assets/!ls.jpg)
 
 ### （3）安裝需求套件
 原始**requirements.txt**套件版本不相容，因此需調整後重新安裝：
 ```bash
 !pip install -r requirements.txt
 ```
+![requirements](assets/requirements.jpg)
 >註：此處需手動修正套件版本，否則無法成功編譯。
+![requirements修改](assets/requirements_correct.jpg)
 
 ### （4）編譯相關模組
 ```bash
@@ -104,7 +107,9 @@ sys.path.append("/content/drive/MyDrive/video_analyst")
 
 ### （8）最終執行結果
 - 程式成功開始讀取模型並逐一進行追蹤測試
+![OTB2015追蹤](assets/OTB2015.jpg)
 - 但在執行至第 67 隻測試序列（Lemming）時中斷
+![追蹤失敗](assets/OTB2015_error.jpg)
 - 無法完成整體追蹤流程，因此無法產生完整結果影片
 
 ---
